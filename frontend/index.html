@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Tropa 78 Escazú - MongoDB</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div id="authModal" class="auth-overlay">
+    <div class="auth-modal">
+        <h3>⚜️ TROPA 78 ⚜️</h3>
+        <div class="auth-subtitle">Sistema de puntajes</div>
+        <input type="text" id="usuarioLogin" placeholder="Usuario" value="dirigente">
+        <input type="password" id="passwordLogin" placeholder="Contraseña" maxlength="32">
+        <button id="loginBtn">👑 INGRESAR COMO DIRIGENTE</button>
+        <button id="modoScoutBtn" class="scout-mode-btn">🔍 SCOUTS / SOLO LECTURA</button>
+        <div id="authError" class="auth-error"></div>
+    </div>
+</div>
+
+<div id="appContainer" class="container" style="display:none;">
+    <div class="header">
+        <h1><span class="fleur-title">⚜️</span> TROPA SCOUT 78 ESCAZÚ <span class="fleur-title">⚜️</span></h1>
+        <div class="motto">"Siempre listos"</div>
+        <div class="date-badge" id="currentDate"></div>
+        <div class="mode-badge-header" id="modeBadge"></div>
+    </div>
+
+    <div class="tab-buttons">
+        <div class="tab-btn active" data-tab="reunion">📋 REUNIÓN</div>
+        <div class="tab-btn" data-tab="patrullas">⚜️ PATRULLAS</div>
+        <div class="tab-btn" data-tab="historial">📅 BITÁCORA</div>
+        <div class="tab-btn" data-tab="reportes">📊 REPORTES</div>
+    </div>
+
+    <div id="tab-reunion" class="tab-pane active">
+        <div class="card">
+            <div class="section-title">📋 REUNIÓN ACTUAL <span id="editHint"></span></div>
+            <label>Nombre de reunión</label>
+            <input type="text" id="nombreReunion" class="input" value="Reunión ordinaria">
+            <label>Fecha</label>
+            <input type="date" id="fechaReunion" class="input">
+            <div id="activitiesContainer"></div>
+            <button id="addActivityBtn" class="btn-add-activity">+ AGREGAR ACTIVIDAD</button>
+            <label>Observaciones</label>
+            <textarea id="observaciones" class="input" rows="3"></textarea>
+            <div class="btn-group">
+                <button id="saveMeetingBtn" class="btn-primary">💾 GUARDAR REUNIÓN</button>
+                <button id="resetMeetingBtn" class="btn-secondary">🔄 REINICIAR</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="section-title">🏆 MARCADOR GENERAL</div>
+            <div id="winnerAnnouncement" class="winner-announcement" style="display:none;"></div>
+            <table class="scores-table">
+                <thead><tr><th>POS</th><th>PATRULLA</th><th>TOTAL</th></tr></thead>
+                <tbody id="rankingBody"></tbody>
+            </table>
+            <div class="btn-group">
+                <button id="whatsappBtn" class="btn-whatsapp">📱 WHATSAPP</button>
+                <button id="csvBtn" class="btn-excel">📊 CSV</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="tab-patrullas" class="tab-pane">
+        <div class="card">
+            <div class="section-title">⚜️ PATRULLAS</div>
+            <div id="patrullaForm" class="inline-form">
+                <input type="text" id="nuevaPatrullaNombre" class="input" placeholder="Nombre de patrulla">
+                <input type="color" id="nuevaPatrullaColor" value="#c49a3a">
+                <button id="crearPatrullaBtn" class="btn-primary">CREAR</button>
+            </div>
+            <div id="patrullasList"></div>
+        </div>
+    </div>
+
+    <div id="tab-historial" class="tab-pane">
+        <div class="card">
+            <div class="section-title">📅 BITÁCORA HISTÓRICA</div>
+            <div id="historialList"></div>
+        </div>
+    </div>
+
+    <div id="tab-reportes" class="tab-pane">
+        <div class="card">
+            <div class="section-title">📊 REPORTE MENSUAL</div>
+            <div class="history-filters">
+                <input type="number" id="reporteAnio" class="input" placeholder="Año">
+                <input type="number" id="reporteMes" class="input" min="1" max="12" placeholder="Mes">
+                <button id="generarReporteMensualBtn" class="btn-primary">GENERAR</button>
+            </div>
+            <div id="reporteMensual"></div>
+        </div>
+        <div class="card">
+            <div class="section-title">📊 REPORTE ANUAL</div>
+            <div class="history-filters">
+                <input type="number" id="reporteAnualAnio" class="input" placeholder="Año">
+                <button id="generarReporteAnualBtn" class="btn-primary">GENERAR</button>
+            </div>
+            <div id="reporteAnual"></div>
+        </div>
+    </div>
+
+    <button id="logoutBtn" class="btn-logout">🔒 SALIR / CAMBIAR MODO</button>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
